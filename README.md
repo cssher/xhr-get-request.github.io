@@ -1,2 +1,5 @@
 # xhr-get-request.github.io
-XHR/AJAX Request(GET)
+
+Simple test app to learn AJAX request basics.
+
+Note: only GET Request featured.
