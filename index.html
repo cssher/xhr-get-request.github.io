@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body{
+            background: rgb(255, 166, 82);
+            transition: background-color 2s ease-in;
+        }
+        .name {
+            text-align: center;
+            border: 3px dotted turquoise;
+            color: white;
+            padding: 5px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-weight: bolder;
+        }
+        .image {
+            box-shadow: 5px 10px turquoise;
+        }
+        button {
+            padding: 10px;
+            border: 0px;
+            border-radius: 10px;
+            background: yellowgreen;
+            color: white;
+            font-weight: bolder;
+            outline: none;
+            box-shadow: 0 0 0 0 rgba(0, 123, 255, 0) !important;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: cadetblue;
+            color: white;
+            border-radius: 15px;
+            transform:scale(1.2,1.2);
+            -webkit-transform:scale(1.3,1.3);
+            -moz-transform:scale(1.3,1.3);
+            transition: transform, 1s;
+        }
+    </style>
+    <title>XHR Request Test</title>
+  </head>
+  <body>
+    <ul id="list" style="list-style: none; display: flex; justify-content: space-around;"></ul>
+    <button onclick="loadFun()" style="display: block;
+    margin: 0 auto; margin-bottom: 10px;;">Click To Get Response</button>
+    <button style="display: block;
+    margin: 0 auto;" onclick="location.reload();">Reload Page</button>
+    <footer style="margin-top: 10px; text-align: center;color: white; font-weight: bolder; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></footer>
+  </body>
+  <script>
+
+
+    function loadFun(){
+
+        var list = document.getElementById("list") 
+        list.innerHTML = "" //to empty the list on each click/api_call so that data is not repeated
+
+        document.body.style.backgroundColor = '#00f';
+       
+        var xhr = new XMLHttpRequest();
+
+
+        xhr.open("GET", "https://reqres.in/api/users", true);
+        xhr.send();
+        console.log(xhr)
+            
+            xhr.onload = function () {
+                    array = JSON.parse(xhr.responseText)
+                    array.data.forEach(function(item) {
+                    console.log(item)
+                    var li = document.createElement("li");
+                    var image = document.createElement("img")
+
+                    var name = document.createElement("p");
+                    name.textContent = item.first_name + " " + item.last_name
+
+                    name.setAttribute("class", "name");
+                    image.setAttribute("class", "image");
+
+                    image.setAttribute("src", item.avatar);
+                    
+                    li.append(image, name)
+                
+                    document.getElementById("list").appendChild(li);
+                    });
+
+                    document.querySelector("footer").innerHTML = "(You may view the whole AJAX (XHR) response in the console)"
+            
+            };
+            
+    }
+
+
+  </script>
+</html>
